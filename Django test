@@ -1,0 +1,57 @@
+import requests
+import json
+from django.db import models
+
+webhook_url = 'https://webhook.site/c01ffc11-9ce6-4f27-9229-45faa57a1365'
+
+class posts(models.Model):
+    title=models.CharField(max_length=20)
+    content=models.CharField(max_length=100)
+    
+    class Meta: 
+          verbose_name_plural ="Posts"
+          
+    def __str__(self):
+        return self.title
+        
+
+from django.contrib import admin
+from rest_framework import serializers
+from .models import posts
+admin.site.register(posts)
+
+class PostsSerializer(Serializers.HyperLinkedModeSerializer):
+    class Meta:
+        model=Posts
+        fields=("id": "ddc5f0ed-60ff-4435-abc5-590fafe4a771"
+"timestamp": '1544827965'
+"event": "delivered", 'AppSecret' : 'https://end69g9mgec5w.x.pipedream')
+        
+from rest_framework import viewsets
+from .serializers import PostsSerializer
+from .models import posts
+class PostViewSet(viewsets.ModelViewSet):
+     queryset=Postsubjects.all().order_by('title')
+     serializer_class = PostsSerializer
+def home(request):
+    response=requests.get('http://127.0.0.1:5000/posts/')
+    data=response.json()
+    return render(request, 'home.html', {'data':data})
+    
+
+from django.urls import include, path
+from rest_framework import routers
+from .import views
+
+routers=routers.DefaultRouter()
+router.register(r,'posts', views.PostViewSet)
+
+requests.post(webhook_url, data=json.dumps(data), headers={ 'APP_ID' : '1', 'APP_SECRET' : 'https://end69g9mgec5w.x.pipedream.net/',  'Content-Type' : 'application/json'})
+
+
+
+
+     
+
+
+    
